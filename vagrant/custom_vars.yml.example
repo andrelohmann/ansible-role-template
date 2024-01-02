@@ -1,0 +1,6 @@
+---
+
+# Copy this file to custom_vars.yml, to add additional variables, that should not be commited to the repositoriy
+additional_role_configs: []
+
+...

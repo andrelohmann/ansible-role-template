@@ -1,0 +1,24 @@
+---
+- hosts: all
+  become: true
+  become_method: sudo
+
+  vars:
+
+    role_config: []
+
+  pre_tasks:
+  - name: check for file custom_vars.yml
+    stat:
+      path: custom_vars.yml
+    register: stat_custom_vars
+  - name: load custom vars, if existent
+    include_vars:
+      file: custom_vars.yml
+    when: stat_custom_vars.stat.exists
+
+  roles:
+  - andrelohmann.root_colored_prompt
+  - ansible-role-__ROLE_NAME__
+
+...
