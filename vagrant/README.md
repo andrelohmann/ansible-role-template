@@ -22,7 +22,7 @@ The vagrant role will be applied automatically during the vagrant up process.
 ```
 vagrant ssh
 cd /etc/ansible/roles/ansible-role- [TAB]
-molecule test
+molecule test --all
 ```
 
 ### Test the installation
