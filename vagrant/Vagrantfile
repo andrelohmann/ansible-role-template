@@ -40,11 +40,7 @@ Vagrant.configure(2) do |config|
     b.vbguest.auto_update = true
 
     # Run Ansible from the Vagrant VM
-    b.vm.provision "shell", inline: "apt update && apt install python3-pip docker.io tree -yqq"
-    b.vm.provision "shell", inline: "usermod -aG docker vagrant"
-
-    # Run Ansible from the Vagrant VM
-    b.vm.provision "shell", inline: "apt update && apt install python3-pip -yqq"
+    b.vm.provision "shell", inline: "apt update && apt install python3-pip tree -yqq"
 
     if vagrant_config['ansible_version'] == "latest"
       b.vm.provision "shell", inline: "pip install --upgrade --no-warn-script-location ansible-core"
@@ -65,6 +61,10 @@ Vagrant.configure(2) do |config|
         ansible_python_interpreter:"/usr/bin/python3"
       }
     end
+
+    # Only install docker, if docker command is not allready installed
+    b.vm.provision "shell", inline: "docker --version || apt install docker.io -yqq"
+    b.vm.provision "shell", inline: "usermod -aG docker vagrant"
 
     # Install molecule and its dependencies
     b.vm.provision "shell", inline: "pip install --user --upgrade --no-warn-script-location ansible-lint yamllint molecule-plugins[docker] docker testinfra", privileged: false
