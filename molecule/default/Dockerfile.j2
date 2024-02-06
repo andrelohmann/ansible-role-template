@@ -6,7 +6,7 @@ LABEL summary="Molecule Systemd Ubuntu" \
 ENV container=docker LANG=C.UTF-8
 
 # Enable apt repositories.
-RUN sed -i 's/# deb/deb/g' /etc/apt/sources.list
+# RUN sed -i 's/# deb/deb/g' /etc/apt/sources.list
 
 # Enable systemd.
 RUN apt-get update ; \
