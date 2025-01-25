@@ -6,76 +6,36 @@ driver:
 platforms:
 - name: ubuntu_jammy
   image: ubuntu:22.04
-  command: ""
+  docker_extra_args:
+  - --cap-add=SYS_ADMIN
+  command: /sbin/init
   tmpfs:
   - /tmp
   - /run
   - /run/lock
-  priviledged: true
-  # capabilities:
-  # - CAP_SYS_ADMIN   # Required for systemd
-  # - CAP_NET_ADMIN   # Required for e.g. iptables
-  # - CAP_NET_RAW
+  privileged: true
   volumes:
   - /sys/fs/cgroup:/sys/fs/cgroup:rw
   - /var/lib/containerd
   cgroupns_mode: host
   pre_build_image: false
   dockerfile: Dockerfile.j2
-- name: ubuntu_focal
-  image: ubuntu:20.04
-  command: ""
+- name: ubuntu_noble
+  image: ubuntu:24.04
+  docker_extra_args:
+  - --cap-add=SYS_ADMIN
+  command: /sbin/init
   tmpfs:
   - /tmp
   - /run
   - /run/lock
-  priviledged: true
-  # capabilities:
-  # - CAP_SYS_ADMIN   # Required for systemd
-  # - CAP_NET_ADMIN   # Required for e.g. iptables
-  # - CAP_NET_RAW
+  privileged: true
   volumes:
   - /sys/fs/cgroup:/sys/fs/cgroup:rw
   - /var/lib/containerd
   cgroupns_mode: host
   pre_build_image: false
   dockerfile: Dockerfile.j2
-# - name: debian_bookworm
-#   image: debian:12
-#   command: ""
-#   tmpfs:
-#   - /tmp
-#   - /run
-#   - /run/lock
-#   priviledged: true
-#   capabilities:
-#   - CAP_SYS_ADMIN  # Required for systemd
-#   - CAP_NET_ADMIN
-#   - CAP_NET_RAW
-#   volumes:
-#   - /sys/fs/cgroup:/sys/fs/cgroup:rw
-#   - /var/lib/containerd
-#   cgroupns_mode: host
-#   pre_build_image: false
-#   dockerfile: Dockerfile.j2
-# - name: debian_bullseye
-#   image: debian:11
-#   command: ""
-#   tmpfs:
-#   - /tmp
-#   - /run
-#   - /run/lock
-#   priviledged: true
-#   capabilities:
-#   - CAP_SYS_ADMIN  # Required for systemd
-#   - CAP_NET_ADMIN
-#   - CAP_NET_RAW
-#   volumes:
-#   - /sys/fs/cgroup:/sys/fs/cgroup:rw
-#   - /var/lib/containerd
-#   cgroupns_mode: host
-#   pre_build_image: false
-#   dockerfile: Dockerfile.j2
 provisioner:
   name: ansible
 verifier:
