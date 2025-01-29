@@ -2,13 +2,13 @@
 - name: Converge
   hosts: all
   become: true
-  become_method: sudo
+  become_method: ansible.builtin.sudo
 
   vars:
     role_configs: []
 
   tasks:
-  - name: "Include andrelohmann.__ROLE_NAME__"
-    include_role:
+  - name: Include andrelohmann.__ROLE_NAME__
+    ansible.builtin.include_role:
       name: "andrelohmann.__ROLE_NAME__"
 ...
