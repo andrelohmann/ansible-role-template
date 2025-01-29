@@ -1,7 +1,8 @@
 ---
-- hosts: all
+- name: Install
+  hosts: all
   become: true
-  become_method: sudo
+  become_method: ansible.builtin.sudo
 
   vars:
 
@@ -9,16 +10,16 @@
 
   pre_tasks:
   - name: check for file custom_vars.yml
-    stat:
+    ansible.builtin.stat:
       path: custom_vars.yml
     register: stat_custom_vars
   - name: load custom vars, if existent
-    include_vars:
+    ansible.builtin.include_vars:
       file: custom_vars.yml
     when: stat_custom_vars.stat.exists
 
   roles:
-  - andrelohmann.root_colored_prompt
-  - ansible-role-__ROLE_NAME__
+  - name: andrelohmann.root_colored_prompt
+  - name: ansible-role-__ROLE_NAME__
 
 ...
